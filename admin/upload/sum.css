@@ -1,0 +1,104 @@
+/* Reset and global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Page container */
+.container-fluid {
+    background: #f8f9fa;
+    padding: 20px;
+}
+
+/* Header */
+header img {
+    /* border-radius: 10px; */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+/* Titles */
+h2, h3 {
+    text-align: center;
+    color: #043357;
+    margin-bottom: 20px;
+}
+
+/* Styled Tables */
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Table header and rows */
+table tr {
+    border-bottom: 1px solid #ddd;
+}
+
+table td {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 16px;
+}
+
+/* Alternating row colors */
+table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect */
+table tbody tr:hover {
+    background-color: #d1ecf1;
+    transition: 0.3s;
+}
+
+/* Left column (labels) */
+table td:first-child {
+    font-weight: bold;
+    background: #043357;
+    color: white;
+    width: 40%;
+    text-align: center;
+}
+
+/* Right column (data) */
+table td:last-child {
+    font-weight: normal;
+    text-align: center;
+}
+
+/* Back button */
+button {
+    display: block;
+    width: 150px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #043357;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #031f3c;
+    transition: 0.3s;
+}
+.chart-container {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

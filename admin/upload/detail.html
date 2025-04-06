@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    
+    <link rel="stylesheet" href="sum.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <header>
+        <img src="head.png" alt="" style="width: 100%;height:20vh">
+    </header>
+<div class="container-fluid mt-4">
+    
+    <div style="margin-top: 50px;"></div>
+    <h2 class="text-center">Student Details</h2>
+    <div style="margin-top: 20px;"></div>
+
+    <table class="styled-table">
+        <tbody>
+            <tr><td>Register Number</td><td id="studentRegNo">N/A</td></tr>
+            <tr><td>Name</td><td id="studentName">N/A</td></tr>
+            <tr><td>Email</td><td id="studentEmail">N/A</td></tr>
+            <tr><td>Phone</td><td id="studentPhone">N/A</td></tr>
+            <tr><td>Parent's Phone</td><td id="studentParentPhone">N/A</td></tr>
+            <tr><td>Department</td><td id="studentDepartment">N/A</td></tr>
+            <tr><td>Current Semester</td><td id="studentSemester">N/A</td></tr>
+            <tr><td>CGPA</td><td id="studentCGPA">N/A</td></tr>
+            <tr><td>Attendance Percentage</td><td id="studentAttendancePercentage">N/A</td></tr>
+        </tbody>
+    </table>
+    <div style="margin-top: 50px;"></div>
+    <h3 class="text-center">AMCAT Scores</h3><div style="margin-top: 20px;"></div>
+    <table class="table table-bordered">
+        <tbody>
+            <tr><td>Logical Ability</td><td id="logicalAbilityScore">N/A</td></tr>
+            <tr><td>English</td><td id="englishScore">N/A</td></tr>
+            <tr><td>Quantitative</td><td id="quantitativeScore">N/A</td></tr>
+            <tr><td>Computer Programming</td><td id="computerProgrammingScore">N/A</td></tr>
+            <tr><td>Automata</td><td id="automata">N/A</td></tr>
+            <tr><td>Automata Fix</td><td id="automataFixScore">N/A</td></tr>
+            <tr><td>Computer Programming Percentile</td><td id="computerProgrammingPercent">N/A</td></tr>
+            <tr><td>WriteX Score</td><td id="writeXScore">N/A</td></tr>
+            <tr><td>WriteX Percentile</td><td id="writeXPercent">N/A</td></tr>
+            <tr><td>Logical Ability Percentile</td><td id="logicalAbilityPercent">N/A</td></tr>
+            <tr><td>English Percentile</td><td id="englishPercent">N/A</td></tr>
+            <tr><td>Quantitative Percentile</td><td id="quantitativePercent">N/A</td></tr>
+            <tr><td>Grouping</td><td id="grouping">N/A</td></tr>
+            <tr><td>Computer Science Score</td><td id="computerScienceScore">N/A</td></tr>
+            <tr><td>Computer Science Percentile</td><td id="computerSciencePercentile">N/A</td></tr>
+            <tr><td>Average</td><td id="average">N/A</td></tr>
+        </tbody>
+    </table>
+    <div style="margin-top: 50px;"></div>
+    <h3 class="text-center">AMCAT Score Distribution</h3>
+    <div class="chart-container">
+        <canvas id="amcatChart"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <button onclick="goBack()" class="btn btn-primary">Back</button>
+</div>
+
+
+
+<script>
+async function fetchStudentDetails() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const regNo = urlParams.get("regNo");
+
+    if (!regNo) {
+        alert("Invalid student ID");
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://127.0.0.1:3000/api/students/${regNo}`);
+        const studentData = await response.json();
+
+        document.getElementById("studentRegNo").textContent = studentData.regNo || "N/A";
+        document.getElementById("studentName").textContent = studentData.name || "N/A";
+        document.getElementById("studentEmail").textContent = studentData.email || "N/A";
+        document.getElementById("studentPhone").textContent = studentData.phone || "N/A";
+        document.getElementById("studentParentPhone").textContent = studentData.parentPhone || "N/A";
+        document.getElementById("studentDepartment").textContent = studentData.department || "N/A";
+        document.getElementById("studentSemester").textContent = studentData.currentSemester || "N/A";
+        document.getElementById("studentCGPA").textContent = studentData.cgpa || "N/A";
+        document.getElementById("studentAttendancePercentage").textContent = studentData.attendancePercentage || "N/A";
+
+        // AMCAT Scores
+        const amcat = studentData.amcatScores || {};
+        document.getElementById("logicalAbilityScore").textContent = amcat.logicalAbilityScore || "N/A";
+        document.getElementById("englishScore").textContent = amcat.englishScore || "N/A";
+        document.getElementById("quantitativeScore").textContent = amcat.quantitativeScore || "N/A";
+        document.getElementById("computerProgrammingScore").textContent = amcat.computerProgrammingScore || "N/A";
+        document.getElementById("automata").textContent = amcat.automata || "N/A";
+        document.getElementById("automata").textContent = amcat.automata || "N/A";  
+        document.getElementById("automataFixScore").textContent = amcat.automataFixScore || "N/A";
+        document.getElementById("computerProgrammingPercent").textContent = amcat.computerProgrammingPercent || "N/A";
+        document.getElementById("writeXScore").textContent = amcat.writeXScore || "N/A";
+        document.getElementById("writeXPercent").textContent = amcat.writeXPercent || "N/A";
+        document.getElementById("logicalAbilityPercent").textContent = amcat.logicalAbilityPercent || "N/A";
+        document.getElementById("englishPercent").textContent = amcat.englishPercent || "N/A";
+        document.getElementById("quantitativePercent").textContent = amcat.quantitativePercent || "N/A";
+        document.getElementById("grouping").textContent = amcat.grouping || "N/A";
+        document.getElementById("computerScienceScore").textContent = amcat.computerScienceScore || "N/A";
+        document.getElementById("computerSciencePercentile").textContent = amcat.computerSciencePercentile || "N/A";
+        document.getElementById("average").textContent = amcat.average || "N/A";
+        updatePieChart(amcat);
+    } catch (error) {
+        console.error("Error fetching student details:", error);
+    }
+}
+function updatePieChart(amcat) {
+    const ctx = document.getElementById("amcatChart").getContext("2d");
+
+    // Extract relevant AMCAT scores
+    const scores = [
+        amcat.logicalAbilityScore || 0,
+        amcat.englishScore || 0,
+        amcat.quantitativeScore || 0,
+        amcat.computerProgrammingScore || 0,
+        amcat.automata || 0
+    ];
+
+    const labels = [
+        "Logical Ability",
+        "English",
+        "Quantitative",
+        "Computer Programming",
+        "Automata"
+    ];
+
+    // Create Pie Chart
+    new Chart(ctx, {
+        type: "pie",
+        data: {
+            labels: labels,
+            datasets: [{
+                data: scores,
+                backgroundColor: ["#ff6384", "#36a2eb", "#ffce56", "#4caf50", "#8e44ad"],
+                hoverBackgroundColor: ["#ff4c72", "#2a8bdc", "#ffbb33", "#3d8b40", "#752e7b"]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
+        }
+    });
+}
+
+function goBack() {
+    window.location.href = "detail1.html";
+}
+
+fetchStudentDetails();
+</script>
+
+</body>
+</html>
